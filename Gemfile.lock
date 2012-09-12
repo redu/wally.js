@@ -1,0 +1,18 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    closure-compiler (1.1.7)
+    jbundle (0.1.4)
+      closure-compiler
+      rack
+      thor
+    rack (1.4.1)
+    rake (0.9.2.2)
+    thor (0.16.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  jbundle
+  rake
