@@ -34,10 +34,10 @@ The Wally service is made of some entities, these are:
 3. Answer
 4. Author
 
-To explain a few about them, a `Wall` has many `Post` which in turn has many `Answer`. A `Post` and an `Answer` are made by an `Author`, who can create many `Post` and `Answer`.
+To explain a little about them, a `Wall` has many `Post` which in turn has many `Answer`. A `Post` and an `Answer` are made by an `Author`, who can create many `Post` and `Answer`.
 
 ### Entities' URLs
-Of course, almost every entity is mapped to a URL on Wally service. The exception is `Author`, because it is treated as an embedded entity, ie we don't need to access it through and URl because it is already inside the `Post` and `Answer` structure.
+Of course, almost every entity is mapped to an URL on Wally service. The exception is `Author`, because it is treated as an embedded entity, ie we don't need to access it through and URl because it is already inside the `Post` and `Answer` structure.
 
 * Wall
     - GET `/walls` (get a list of Walls)
