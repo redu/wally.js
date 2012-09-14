@@ -3,3 +3,4 @@ node_modules
 .rvmrc.*
 .bundle
 bin
+.DS_Store

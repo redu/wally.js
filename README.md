@@ -162,35 +162,9 @@ GET `/answers/1`
 Anyone can contribute with us, just fork it and create a pull request.
 
 ## Development setup
-We use [Node.js](http://nodejs.org/) so we can have a more organized setup and don't rely on a browser. You can install Node with [these packages](http://nodejs.org/download/) or simple use Brew (if you use Mac OS).
+You do not need to install a thing, because all you need is already inside the repository.
 
-```sh
-$ brew install nodejs
-```
-
-For tests we use [Mocha](http://visionmedia.github.com/mocha/) and [Chai](http://chaijs.com/), but don't worry because you will have all set up because of [npm](https://npmjs.org/). So let's install it and make it install all we need:
-
-```sh
-# Install the Package Manager
-$ curl https://npmjs.org/install.sh | sh
-
-$ cd wally.js
-# Install all dependencies
-wally.js $ npm install
-
-# Bundle to get rake command
-wally.js $ bundle
-# Run the tests
-wally.js $ rake
-
-  -----------------------------------------------
-  ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅✈
-  -----------------------------------------------
-
-  ✔ 1 test complete (3ms)
-
-# Start to code! o/
-```
+We use [Mocha](http://visionmedia.github.com/mocha/) and [Chai](http://chaijs.com/) for tests, but don't worry because it's all set up. You just need to open the `test/runner.html` and all tests will run on the browser and present to you a report with a clean layout.
 
 ## Bundle wally.js
 You just need to set to the correct version number in `JFile` and run `jbundle`. Remember that to run `jbundle` you need to run `bundle` first, so this dependencie will be installed.
