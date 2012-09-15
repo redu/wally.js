@@ -16,8 +16,11 @@ src_dir './src'
 #
 bundle 'wally.js' do
   license 'license.txt'
-  file 'wally.js'
   file 'models/wall.js'
+  file 'models/entry.js'
+  file 'models/author.js'
+  file 'models/post.js'
+  file 'models/answer.js'
 end
 
 # Optional post-bundling filter, for example for string substitution

@@ -5,18 +5,16 @@
     <link rel="stylesheet" href="lib/mocha-1.4.2.css" />
 
     <!-- Include libraries -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../src/lib/jquery-1.8.1.min.js"><\/script>')</script>
+    <script src="../src/lib/jquery-1.8.1.min.js"></script>
     <script src="../src/lib/handlebars-1.0.0.beta.6.js"></script>
     <script src="../src/lib/ember-1.0.pre.min.js"></script>
-    <script src="../src/lib/ember-data.min.js"></script>
+    <script src="../src/lib/ember-data.js"></script>
 
 
     <!-- Include test libraries -->
     <script src="./lib/mocha-1.4.2.js"></script>
     <script>mocha.setup('bdd')</script>
-    <script src="http://chaijs.com/chai.js" type="text/javascript"></script>
-    <script>window.chai || document.write('<script src="./lib/chai-1.2.0.js"><\/script>')</script>
+    <script src="./lib/chai-1.2.0.js"></script>
     <script>var expect = chai.expect</script>
     <script>var should = chai.should()</script>
     <script>
@@ -31,6 +29,10 @@
 
     <!-- Tests -->
     <script src="./models/wall_test.js"></script>
+    <script src="./models/entry_test.js"></script>
+    <script src="./models/post_test.js"></script>
+    <script src="./models/answer_test.js"></script>
+    <script src="./models/author_test.js"></script>
 
     <script>
       onload = function(){

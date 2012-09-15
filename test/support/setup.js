@@ -1,6 +1,10 @@
 Redu = {}
 Redu.Wally = Ember.Application.create({});
-Redu.Wally.store = DS.Store.create({
+store = null;
+
+function resetStore(){
+  store = DS.Store.create({
     revision: 4,
-    adapter: DS.RESTAdapter.create()
-});
+    //adapter: DS.RESTAdapter.create()
+  });
+}
