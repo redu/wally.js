@@ -13,11 +13,15 @@ First you need to include wally.js on your app:
 After requiring it, instantiate the Wally app and be happy:
 
 ```js
-// Initialize Wally.js with your token to access the Wally server and
-// inform the root element where the wall should be rendered.
-var wally = Redu.Wally({ token: "yourtoken", root_element: "#wall-content" })
-// Specify which wall you want, ie you have to informe the wall's owner
-wally.showWall({ resource_id: "core:space_45" })
+// Initialize Wally.js with:
+// - your token to access the Wally server
+// - the root element where the wall should be rendered
+// - which wall you want, ie you have to informe the wall's owner
+var wally = new Redu.Wally({
+  token: "yourtoken",
+  root_element: "#wall-content",
+  resource_id: "core:space_45"
+})
 ```
 
 For example, if you have a blog that has a wall, the blog is the wall's owner. So the `resource_id` is the blog's identifier.
@@ -66,10 +70,10 @@ GET `/walls/1`
     "links": [
       { "rel": "self", "href": "http://wall.redu.com.br/walls/1" }
     ]
-    "resource_id": "space_1",
-    "statuses": [
-      { "post" : {...}  },
-      { "post" : {...}  }
+    "resource_id": "core:space_1",
+    "posts": [
+      { "id" : 1, ... },
+      { "id" : 2, ... }
     ]
   }
 }
@@ -100,8 +104,8 @@ GET `/posts/1`
       },
      },
     "answers": [
-        { "answer" : {...} },
-        { "answer" : {...} }
+      { "id": 1, ... },
+      { "id": 2, ... },
     ],
     "content": {
       "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -164,7 +168,11 @@ Anyone can contribute with us, just fork it and create a pull request.
 ## Development setup
 You do not need to install a thing, because all you need is already inside the repository.
 
-We use [Mocha](http://visionmedia.github.com/mocha/) and [Chai](http://chaijs.com/) for tests, but don't worry because it's all set up. You just need to open the `test/runner.html` and all tests will run on the browser and present to you a report with a clean layout.
+We use [Mocha](http://visionmedia.github.com/mocha/) and [Chai](http://chaijs.com/) for tests, but don't worry because it's all set up. You just need to run the static files server (with jBundle) and open the `test/runner.html` and all tests will run on the browser and present to you a report with a clean layout.
+```
+# Start static files server
+$ jbundle s
+```
 
 ## Bundle wally.js
 You just need to set to the correct version number in `JFile` and run `jbundle`. Remember that to run `jbundle` you need to run `bundle` first, so this dependencie will be installed.

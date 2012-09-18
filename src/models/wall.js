@@ -1,7 +1,7 @@
 (function(Wally){
   Wally.Wall = DS.Model.extend({
-    entries: DS.hasMany('Redu.Wally.Entry'),
-    resource_id: DS.attr('string'),
+    primaryKey: 'resource_id',
+    posts: DS.hasMany('Redu.Wally.Post', { embedded: true }),
     links: null,
 
     init: function(){
