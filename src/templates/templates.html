@@ -1,0 +1,62 @@
+<script type="text/x-handlebars" data-template-name="application">
+    Wally App
+    {{outlet}}
+</script>
+<script type="text/x-handlebars" data-template-name="wall">
+    {{#each post in content.posts}}
+      {{view Redu.Wally.PostView contentBinding="post"}}
+    {{/each}}
+</script>
+<script type="text/x-handlebars" data-template-name="post">
+    <div class="status">
+        <div class="status-context">
+            <span class="status-subject icon-small icon-subject-lightblue_32_34">
+            </span>
+            {{#each context in post.contexts}}
+                <a href="{{contextUrl post context public_self}}" class="status-main">{{ context.name }}</a>
+            {{/each}}
+        </div>
+        <div class="status-log">
+            <img alt="{{unbound post.author.name }}" class="friend-avatar" height="32" src="{{unbound post.author.linkThumbnail32 }}" width="32">
+
+            <div class="status-icon icon-member-gray_16_18-before ">
+                <a href="{{unbound post.author.linkSelfPublic}}" class="username">{{ post.author.name }}</a>
+                <span class="status-info"> {{ post.action }} <a href="{{unbound post.linkTargetSelfPublic}}">{{ post.target.name }}</a></span>
+                {{datetime post.created_at}}
+            </div>
+            <div class="status-contents">
+                <div class="distance-top"></div>
+                <p class="status-message">{{ post.content.text }}</p>
+            </div>
+            <div class="responses">
+                <div class="distance-top"></div>
+                <span class="last-responses" style="display: none; ">Visualizando as últimas respostas</span>
+                <ol>
+                    {{#each answer in post.answers}}
+                        {{view Redu.Wally.AnswerView contentBinding="answer"}}
+                    {{/each}}
+                </ol>
+                <div class="toggle-statuses" style="display: none; ">
+                    <hr class="border-post">
+                    <a href="#">Ver todos os <span class="qty">1</span> comentários</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</script>
+<script type="text/x-handlebars" data-template-name="answer">
+    {{log answer.author.name}}
+    <li id="status-54958">
+        <hr class="border-post" style="display: none; ">
+        <div class="re-status">
+            <a href="/statuses/54958" class="close icon-small icon-delete-gray_8_10 replacement" data-confirm="Deseja remover a postagem?" data-method="delete" data-remote="true" rel="nofollow">Fechar</a>
+            <div class="status-text">
+                <img alt="{{unbound answer.author.name }}" class="avatar" height="32" src="{{unbound answer.author.linkThumbnail32 }}" width="32">
+                <a href="{{unbound answer.author.linkSelfPublic}}" class="username">{{ answer.author.name }}</a>
+                {{datetime answer.created_at}}
+            </div>
+            <p class="status-message">{{ answer.content.text }}</p>
+        </div>
+    </li>
+</script>

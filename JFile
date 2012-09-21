@@ -17,11 +17,20 @@ src_dir './src'
 bundle 'wally.js' do
   license 'license.txt'
   file 'support/transforms.js'
+  file 'support/handlebars_helpers.js'
+  file 'app.js'
   file 'models/wall.js'
   file 'models/entry.js'
   file 'models/author.js'
   file 'models/post.js'
   file 'models/answer.js'
+  file 'controllers/application_controller.js'
+  file 'controllers/wall_controller.js'
+  file 'views/application_view.js'
+  file 'views/wall_view.js'
+  file 'views/post_view.js'
+  file 'views/answer_view.js'
+  file 'router.js'
 end
 
 # Optional post-bundling filter, for example for string substitution
