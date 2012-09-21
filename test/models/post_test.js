@@ -37,6 +37,24 @@
           Wally.Post.typeForAssociation('answers').toString().should.
               equal('.Answer');
         });
+
+        it('answers is embedded (should not do a request)', function(){
+          resetStore();
+
+          store.load(Wally.Post, 1, {
+            id: 1,
+            answers: [
+              { id: 1, content: { text: "My name" } },
+              { id: 2, content: { text: "My name" } }
+            ]
+          });
+          post = store.find(Wally.Post, 1);
+
+          var getAnswers = function(){
+            post.get('answers');
+          };
+          expect(getAnswers).to.not.throw('Error');
+        });
       });
     });
 
@@ -47,7 +65,7 @@
         });
 
         it('target is of type Object', function(){
-          Ember.typeOf(post.get('target')).should.equal('object');
+          (typeof post.get('target')).should.equal('object');
         });
       });
 
@@ -56,8 +74,8 @@
           expect(post.get('contexts')).not.to.be.undefined;
         });
 
-        it('contexts is an Ember array', function(){
-          Ember.isArray(post.get('contexts')).should.be.true;
+        it('contexts is an Object', function(){
+          (typeof post.get('contexts')).should.equal('object');
         });
       });
 
@@ -72,5 +90,63 @@
         });
       });
     });
+
+    describe('ComputedProperties', function(){
+      describe('has a computed property targetSelfPublicLink', function(){
+        beforeEach(function(){
+          post.set('target', {
+            id: 1,
+            name: 'Target #1',
+            links: [
+              { rel: 'self', href: 'http://redu.com.br/api/spaces/1' },
+              { rel: 'self_public', href: 'http://redu.com.br/espacos/1' }
+            ]
+          });
+        });
+
+        afterEach(function(){
+          post.set('target', null);
+        });
+
+        it('respond to targetSelfPublicLink', function(){
+          expect(post.get('targetSelfPublicLink')).to.not.be.undefined;
+        });
+
+        it('returns the target self_public Link', function(){
+          post.get('targetSelfPublicLink').should.
+              equal('http://redu.com.br/espacos/1');
+        });
+      });
+    });
+
+    describe('Functions', function(){
+      describe('has a computed property contextLink', function(){
+        beforeEach(function(){
+          post.set('contexts', [
+            {
+              id: 1, name: 'Context #1',
+              links: [
+                { rel: 'self', href: 'http://redu.com.br/api/courses/1' },
+                { rel: 'public_self', href: 'http://redu.com.br/environment/cursos/curso-de-algo' }
+              ]
+            }
+          ]);
+        });
+
+        afterEach(function(){
+          post.set('contexts', null);
+        });
+
+        it('respond to contextLink', function(){
+          expect(post.contextLink).to.not.be.undefined;
+        });
+
+        it('returns the specified link of the specified context', function(){
+          var context = post.get('contexts').objectAt(0);
+          post.contextLink(context, 'self').should.
+              equal('http://redu.com.br/api/courses/1');
+        });
+      })
+    })
   });
 })(Redu.Wally)

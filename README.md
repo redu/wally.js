@@ -165,13 +165,16 @@ GET `/answers/1`
 # Contribute
 Anyone can contribute with us, just fork it and create a pull request.
 
+## Next steps
+1. Precompile handlebars templates
+
 ## Development setup
 You do not need to install a thing, because all you need is already inside the repository.
 
 We use [Mocha](http://visionmedia.github.com/mocha/) and [Chai](http://chaijs.com/) for tests, but don't worry because it's all set up. You just need to run the static files server (with jBundle) and open the `test/runner.html` and all tests will run on the browser and present to you a report with a clean layout.
 ```
 # Start static files server
-$ jbundle s
+wally.js $ jbundle s
 ```
 
 ## Bundle wally.js

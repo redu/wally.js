@@ -16,6 +16,7 @@ src_dir './src'
 #
 bundle 'wally.js' do
   license 'license.txt'
+  file 'support/transforms.js'
   file 'models/wall.js'
   file 'models/entry.js'
   file 'models/author.js'

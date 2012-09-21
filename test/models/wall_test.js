@@ -58,8 +58,8 @@
           expect(wall.get('links')).to.not.be.undefined;
         });
 
-        it('links is an Ember array', function(){
-          Ember.isArray(wall.get('links')).should.be.true;
+        it('links is an Object', function(){
+          (typeof wall.get('links')).should.equal('object');
         });
       });
     });

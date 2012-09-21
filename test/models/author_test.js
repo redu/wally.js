@@ -29,8 +29,8 @@
           expect(author.get('links')).to.not.be.undefined;
         });
 
-        it('links is an Ember array', function(){
-          Ember.isArray(author.get('links')).should.be.true;
+        it('links is an Object', function(){
+          (typeof author.get('links')).should.equal('object');
         });
       });
 
@@ -39,8 +39,8 @@
           expect(author.get('thumbnails')).to.not.be.undefined;
         });
 
-        it('thumbnails is an Ember array', function(){
-          Ember.isArray(author.get('thumbnails')).should.be.true;
+        it('thumbnails is an Object', function(){
+          (typeof author.get('thumbnails')).should.equal('object');
         });
       });
 
@@ -50,9 +50,54 @@
         });
 
         it('role is of type Object', function(){
-          Ember.typeOf(author.get('role')).should.equal('object');
+          (typeof author.get('role')).should.equal('object');
         });
       });
     })
+
+    describe('ComputedProperties', function(){
+      describe('has a computed property thumbnail32Link', function(){
+        beforeEach(function(){
+          author.set('thumbnails', [
+            { href: 'http://s3.amazonaws.com/redu_uploads/users/avatars/158/thumb_32/Tiago%203x4.jpg?1321660982',
+              size: '32x32' }
+          ]);
+        });
+
+        afterEach(function(){
+          author.set('thumbnails', null);
+        });
+
+        it('respond to thumbnail32Link', function(){
+          expect(author.get('thumbnail32Link')).to.not.be.undefined;
+        });
+
+        it('returns the thumbnail of size 32 link', function(){
+          author.get('thumbnail32Link').should.equal('http://s3.amazonaws.com/redu_uploads/users/avatars/158/thumb_32/Tiago%203x4.jpg?1321660982');
+        });
+      });
+
+      describe('has a computed property selfPublicLink', function(){
+        beforeEach(function(){
+          author.set('links', [
+            { rel: "public_self", href: "http://redu.com.br/pessoas/guiocavalcanti" },
+            { rel: "self", href: "http://redu.com.br/api/users/guiocavalcanti" }
+          ]);
+        });
+
+        afterEach(function(){
+          author.set('links', null);
+        });
+
+        it('respond to selfPublicLink', function(){
+          expect(author.get('selfPublicLink')).to.not.be.undefined;
+        });
+
+        it('returns the author self pulic link', function(){
+          author.get('selfPublicLink').should.
+              equal('http://redu.com.br/pessoas/guiocavalcanti');
+        });
+      });
+    });
   })
 })(Redu.Wally);

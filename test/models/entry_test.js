@@ -22,6 +22,22 @@
           Wally.Entry.typeForAssociation('author').toString().should.
               equal('.Author');
         });
+
+        it('author is embedded (should not do a request)', function(){
+          resetStore();
+
+          store.load(Wally.Entry, 1, {
+            id: 1,
+            author: { id: 1, name: "My name"}
+          });
+          entry = store.find(Wally.Entry, 1);
+
+          var getAuthor = function(){
+            entry.get('author');
+          };
+          expect(getAuthor).to.not.throw('Error');
+          expect(entry.get('author')).to.not.be.null;
+        });
       });
     });
 
@@ -32,7 +48,7 @@
         });
 
         it('content is of type Object', function(){
-          Ember.typeOf(entry.get('content')).should.equal('object');
+          (typeof entry.get('content')).should.equal('object');
         });
       });
 
@@ -41,8 +57,8 @@
           expect(entry.get('links')).to.not.be.undefined;
         });
 
-        it('links is an Ember array', function(){
-          Ember.isArray(entry.get('links')).should.be.true;
+        it('links is an Object', function(){
+          (typeof entry.get('links')).should.equal('object');
         });
       });
 
@@ -52,7 +68,7 @@
         });
 
         it('rule is of type Object', function(){
-          Ember.typeOf(entry.get('rule')).should.equal('object');
+          (typeof entry.get('rule')).should.equal('object');
         });
       });
 
