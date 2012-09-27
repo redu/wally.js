@@ -4,6 +4,9 @@
 </script>
 <script type="text/x-handlebars" data-template-name="wall">
     {{outlet}}
+</script>
+<script type="text/x-handlebars" data-template-name="post_list">
+    {{outlet}}
     {{#each post in content}}
       {{view Redu.Wally.PostView contentBinding="post"}}
     {{/each}}
@@ -23,6 +26,7 @@
             <div class="status-icon icon-member-gray_16_18-before ">
                 <a href="{{unbound post.author.selfPublicLink}}" class="username">{{ post.author.name }}</a>
                 <span class="status-info"> {{ post.action }} <a href="{{unbound post.targetSelfPublicLink}}">{{ post.target.name }}</a></span>
+                <a {{action destroyRecord target="view"}}>Fechar</a>
                 {{#if post.created_at}}
                     {{datetime post.created_at}}
                 {{/if}}

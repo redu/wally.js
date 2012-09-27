@@ -10,5 +10,10 @@
         return false;
       }
     }.property("content.id"),
+
+    destroyRecord: function(){
+      this.get('controller').destroyRecord(this.get('content'));
+      this.$().remove();
+    }
   })
 })(Redu.Wally);
