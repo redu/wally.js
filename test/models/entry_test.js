@@ -28,7 +28,7 @@
 
           store.load(Wally.Entry, 1, {
             id: 1,
-            author: { id: 1, name: "My name"}
+            author: { user_id: 1, name: "My name"}
           });
           entry = store.find(Wally.Entry, 1);
 

@@ -26,10 +26,12 @@ bundle 'wally.js' do
   file 'models/answer.js'
   file 'controllers/application_controller.js'
   file 'controllers/wall_controller.js'
+  file 'controllers/new_post_controller.js'
   file 'views/application_view.js'
   file 'views/wall_view.js'
   file 'views/post_view.js'
   file 'views/answer_view.js'
+  file 'views/new_post_view.js'
   file 'router.js'
 end
 

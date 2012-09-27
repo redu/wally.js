@@ -1,5 +1,6 @@
 (function(Wally){
   Wally.Author = DS.Model.extend({
+    primaryKey: 'user_id',
     name: DS.attr('string'),
     links: DS.attr('object'),
     thumbnails: DS.attr('object'),
