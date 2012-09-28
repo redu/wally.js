@@ -48,25 +48,32 @@
                     <a href="#">Ver todos os <span class="qty">1</span> comentários</a>
                 </div>
             </div>
+            {{view Redu.Wally.NewAnswerView}}
         </div>
-
     </div>
 </script>
 <script type="text/x-handlebars" data-template-name="answer">
     <li id="status-54958">
         <hr class="border-post" style="display: none; ">
         <div class="re-status">
-            <a href="/statuses/54958" class="close icon-small icon-delete-gray_8_10 replacement" data-confirm="Deseja remover a postagem?" data-method="delete" data-remote="true" rel="nofollow">Fechar</a>
+            <a {{action destroyRecord target="view"}}>Fechar</a>
             <div class="status-text">
                 <img alt="{{unbound answer.author.name }}" class="avatar" height="32" src="{{unbound answer.author.thumbnail32Link }}" width="32">
                 <a href="{{unbound answer.author.selfPublicLink}}" class="username">{{ answer.author.name }}</a>
-                {{datetime answer.created_at}}
+                {{#if answer.created_at}}
+                    {{datetime answer.created_at}}
+                {{/if}}
             </div>
             <p class="status-message">{{ answer.content.text }}</p>
         </div>
     </li>
 </script>
 <script type="text/x-handlebars" data-template-name="new_post">
+    {{view Ember.TextArea}} {{! bind done inside the controller}}
+    <button type="submit">Postar</button>
+    <a>Cancelar</a>
+</script>
+<script type="text/x-handlebars" data-template-name="new_answer">
     {{view Ember.TextArea}} {{! bind done inside the controller}}
     <button type="submit">Postar</button>
     <a>Cancelar</a>

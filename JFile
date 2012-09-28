@@ -34,6 +34,7 @@ bundle 'wally.js' do
   file 'views/answer_view.js'
   file 'views/new_post_view.js'
   file 'views/post_list_view.js'
+  file 'views/new_answer_view.js'
   file 'router.js'
 end
 
