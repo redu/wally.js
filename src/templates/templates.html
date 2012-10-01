@@ -25,7 +25,7 @@
 
             <div class="status-icon icon-member-gray_16_18-before ">
                 <a href="{{unbound post.author.selfPublicLink}}" class="username">{{ post.author.name }}</a>
-                <span class="status-info"> {{ post.action }} <a href="{{unbound post.targetSelfPublicLink}}">{{ post.target.name }}</a></span>
+                <span class="status-info"> {{ readableAction post }} <a href="{{unbound post.targetSelfPublicLink}}">{{ readableTarget post }}</a></span>
                 <a {{action destroyRecord target="view"}}>Fechar</a>
                 {{#if post.created_at}}
                     {{datetime post.created_at}}

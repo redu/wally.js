@@ -20,3 +20,46 @@ Handlebars.registerHelper('datetime', function(date, options){
   return new Handlebars.SafeString('<time class="date" datetime="' +
       dateObj.toISOString() + '">' + formatedDate + '</time>');
 });
+
+Handlebars.registerHelper('readableAction', function(entry, options){
+  var entryObj = Ember.Handlebars.getPath(this, entry, options);
+  var action;
+
+  switch(entryObj.get('action')){
+    case "comment":
+      action = "comentou";
+      break;
+  };
+
+  switch(entryObj.get('target')['kind']){
+    case "space":
+      action += " no mural da disciplina";
+      break;
+    case "lecture":
+      action += " no mural da aula";
+      break;
+    case "user":
+      if (entryObj.get('target.id') == entryObj.get('author.id')){
+        action += " no";
+      } else {
+        action += " no mural de";
+      }
+      break;
+  };
+
+  return action;
+});
+
+Handlebars.registerHelper('readableTarget', function(entry, options){
+  var entryObj = Ember.Handlebars.getPath(this, entry, options);
+  var target = entryObj.get('target');
+  var targetName;
+
+  if (target['kind'] == "user" && (target['id'] == entryObj.get('author.id'))){
+    targetName = "seu próprio mural";
+  } else {
+    targetName = target["name"];
+  }
+
+  return targetName;
+});
