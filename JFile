@@ -19,6 +19,7 @@ bundle 'wally.js' do
   file 'support/transforms.js'
   file 'support/handlebars_helpers.js'
   file 'app.js'
+  file 'support/rest_adapter.js'
   file 'models/wall.js'
   file 'models/entry.js'
   file 'models/author.js'
