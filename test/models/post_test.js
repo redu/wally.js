@@ -114,7 +114,131 @@
 
         it('returns the target self_public Link', function(){
           post.get('targetSelfPublicLink').should.
-              equal('http://redu.com.br/espacos/1');
+            equal('http://redu.com.br/espacos/1');
+        });
+      });
+
+      describe('has a computed property readableAction', function(){
+        beforeEach(function(){
+          post.set('action', 'comment');
+          post.set('target', { kind: 'any'});
+        });
+
+        afterEach(function(){
+          post.set('action', null);
+          post.set('target', null);
+        });
+
+        it('respond to readableAction', function(){
+          expect(post.get('readableAction')).to.not.be.undefined;
+        });
+
+        describe('when comment on a space', function(){
+          beforeEach(function(){
+            post.set('target', { kind: 'space'});
+          });
+
+          afterEach(function(){
+            post.set('target', null);
+          });
+
+          it("returns 'comentou no mural da disciplina' ", function(){
+            post.get('readableAction').should.
+              equal('comentou no mural da disciplina');
+          });
+        });
+
+        describe('when comment on a lecture', function(){
+          beforeEach(function(){
+            post.set('target', { kind: 'lecture'});
+          });
+
+          afterEach(function(){
+            post.set('target', null);
+          });
+
+          it("returns 'comentou no mural da aula' ", function(){
+            post.get('readableAction').should.equal('comentou no mural da aula');
+          });
+        });
+
+        describe('when comment on a user', function(){
+          beforeEach(function(){
+            post.set('target', { kind: 'user'});
+          });
+
+          afterEach(function(){
+            post.set('target', null);
+          });
+
+          describe('thats different from the author', function(){
+            beforeEach(function(){
+              post.get('target')['id'] = 24;
+              post.set('author', { id: 89 });
+            });
+
+            afterEach(function(){
+              post.get('target')['id'] = null;
+              post.set('author', null);
+            });
+
+            it("returns 'comentou no mural de' ", function(){
+              post.get('readableAction').should.equal('comentou no mural de');
+            });
+          });
+
+          describe('thats the author', function(){
+            beforeEach(function(){
+              post.get('target')['id'] = 24;
+              post.set('author', { id: 24 });
+            });
+
+            afterEach(function(){
+              post.get('target')['id'] = null;
+              post.set('author', null);
+            });
+
+            it("returns 'comentou no' ", function(){
+              post.get('readableAction').should.equal('comentou no');
+            });
+          });
+        });
+      });
+
+
+      describe('has a computed property readableTarget', function(){
+        beforeEach(function(){
+          post.set('target', { name: 'Target'});
+        });
+
+        afterEach(function(){
+          post.set('target', null);
+        });
+
+        it('respond to readableTarget', function(){
+          expect(post.get('readableTarget')).to.not.be.undefined;
+        });
+
+        it('returns the target name', function(){
+          post.get('readableTarget').should.equal('Target');
+        });
+
+        describe('when target is the author', function(){
+          beforeEach(function(){
+            post.get('target')['kind'] = 'user';
+            post.get('target')['id'] = 89;
+            post.set('author', { id: 89 });
+          });
+
+          afterEach(function(){
+            post.get('target')['kind'] = 'user';
+            post.get('target')['id'] = 89;
+            post.set('author', null);
+          });
+
+          it("returns 'seu próprio mural'", function(){
+            post.get('readableTarget').should.equal('seu próprio mural');
+          });
         });
       });
     });

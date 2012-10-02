@@ -18,6 +18,48 @@
       if(link) { return link['href']; }
     }.property('target'),
 
+    readableAction: function(){
+      var action;
+
+      switch(this.get('action')){
+        case "comment":
+          action = "comentou";
+          break;
+      };
+
+      switch(this.get('target')['kind']){
+        case "space":
+          action += " no mural da disciplina";
+          break;
+        case "lecture":
+          action += " no mural da aula";
+          break;
+        case "user":
+          if (this.get('target.id') == this.get('author.id')){
+            action += " no";
+          } else {
+            action += " no mural de";
+          }
+          break;
+      };
+
+      return action;
+    }.property('action', 'target'),
+
+
+    readableTarget: function(){
+      var target = this.get('target');
+      var targetName;
+
+      if (target['kind'] == "user" && (target['id'] == this.get('author.id'))){
+        targetName = "seu próprio mural";
+      } else {
+        targetName = target["name"];
+      }
+
+      return targetName;
+    }.property('target'),
+
     contextLink : function(context, linkName) {
       var link = context['links'].reduce(function(acc, item){
         if((acc == undefined) && (item['rel'] == linkName)) {
