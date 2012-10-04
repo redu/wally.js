@@ -18,6 +18,7 @@ bundle 'wally.js' do
   license 'license.txt'
   file 'support/transforms.js'
   file 'support/handlebars_helpers.js'
+  file 'config/timeago.js'
   file 'app.js'
   file 'support/rest_adapter.js'
   file 'models/wall.js'
