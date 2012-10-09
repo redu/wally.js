@@ -205,7 +205,6 @@
         });
       });
 
-
       describe('has a computed property readableTarget', function(){
         beforeEach(function(){
           post.set('target', { name: 'Target'});
@@ -238,6 +237,43 @@
 
           it("returns 'seu próprio mural'", function(){
             post.get('readableTarget').should.equal('seu próprio mural');
+          });
+        });
+      });
+
+      describe('has a computed property readableContext', function(){
+        beforeEach(function(){
+          post.set('contexts', [
+            { name: 'Context #1' },
+            { name: 'Context #2' },
+            { name: 'Context #3' },
+          ]);
+        });
+
+        afterEach(function(){
+          post.set('contexts', null);
+        });
+
+        it('respond to readableContext', function(){
+          expect(post.get('readableContext')).to.not.be.undefined;
+        });
+
+        it('returns the contexts in correct format', function(){
+          post.get('readableContext').should.
+            equal('Context #1 > Context #2 > Context #3');
+        });
+
+        describe('when post does not have contexts', function(){
+          beforeEach(function(){
+            post.set('contexts', []);
+          });
+
+          afterEach(function(){
+            post.set('contexts', null);
+          });
+
+          it("returns empty string", function(){
+            post.get('readableContext').should.equal('');
           });
         });
       });

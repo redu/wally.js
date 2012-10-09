@@ -3,12 +3,17 @@
     var view;
 
     beforeEach(function(){
+      // Mock applyTimeago to prevent DOM errors
+      Wally.PostView.reopen({
+        applyTimeago: function(){
+          return false;
+        }
+      })
       view = Wally.PostView.create();
     });
 
     afterEach(function(){
       view = null;
-      resetStore();
     });
 
     it("has a template named 'post'", function(){

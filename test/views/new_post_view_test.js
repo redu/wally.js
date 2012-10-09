@@ -8,7 +8,6 @@
 
     afterEach(function(){
       view = null;
-      resetStore();
     });
 
     it("has a template named 'new_post'", function(){

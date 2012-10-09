@@ -3,6 +3,11 @@
     templateName: 'new_post',
     tagName: 'form',
 
+    didInsertElement: function(){
+      // Needed because of Bootstrap Redu
+      this.$("textarea").autosize();
+    },
+
     submit: function(event){
       event.preventDefault();
 

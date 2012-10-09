@@ -46,7 +46,6 @@
       return action;
     }.property('action', 'target'),
 
-
     readableTarget: function(){
       var target = this.get('target');
       var targetName;
@@ -60,7 +59,19 @@
       return targetName;
     }.property('target'),
 
-    contextLink : function(context, linkName) {
+    readableContext: function(){
+      var context = "";
+      this.get('contexts').forEach(function(item){
+        if(this.indexOf(item) != 0){
+          context += " > ";
+        }
+        context += item.name;
+      }, this.get('contexts'));
+
+      return context;
+    }.property('contexts'),
+
+    contextLink: function(context, linkName) {
       var link = context['links'].reduce(function(acc, item){
         if((acc == undefined) && (item['rel'] == linkName)) {
           acc = item;

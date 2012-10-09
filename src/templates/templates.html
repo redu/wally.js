@@ -1,80 +1,107 @@
 <script type="text/x-handlebars" data-template-name="application">
-    Wally App
     {{outlet}}
 </script>
 <script type="text/x-handlebars" data-template-name="wall">
     {{outlet}}
 </script>
 <script type="text/x-handlebars" data-template-name="post_list">
-    {{outlet}}
-    {{#each post in content}}
-      {{view Redu.Wally.PostView contentBinding="post"}}
-    {{/each}}
+    <div class="statuses">
+        <div class="status">
+            <div class="status-content">
+                {{outlet}}
+            </div>
+        </div>
+    </div>
+    <ol class="statuses">
+        {{#each post in content}}
+        {{view Redu.Wally.PostView contentBinding="post"}}
+        {{/each}}
+    </ol>
 </script>
 <script type="text/x-handlebars" data-template-name="post">
-    <div class="status">
-        <div class="status-context">
-            <span class="status-subject icon-small icon-subject-lightblue_32_34">
-            </span>
-            {{#each context in post.contexts}}
-                <a href="{{contextUrl post context public_self}}" class="status-main">{{ context.name }}</a>
-            {{/each}}
-        </div>
-        <div class="status-log">
-            <img alt="{{unbound post.author.name }}" class="friend-avatar" height="32" src="{{unbound post.author.thumbnail32Link }}" width="32">
+    <a href="#" class="icon-link"><span class="icon-subject-gray_32_34 text-replacement">Aula</span></a>
+    {{#if post.contexts}}
+        <span class="legend environment-name">
+            {{ post.readableContext }}
+        </span>
+        <a href="{{unbound post.targetSelfPublicLink}}" class="course-name">{{post.target.name}}</a>
+    {{/if}}
 
-            <div class="status-icon icon-member-gray_16_18-before ">
-                <a href="{{unbound post.author.selfPublicLink}}" class="username">{{ post.author.name }}</a>
-                <span class="status-info"> {{ post.readableAction  }} <a href="{{unbound post.targetSelfPublicLink}}">{{ post.readableTarget }}</a></span>
-                <a {{action destroyRecord target="view"}}>Fechar</a>
-                {{#if post.created_at}}
-                    {{datetime post.created_at}}
-                {{/if}}
+    <div class="status-text">
+        <a href="#" class="icon-link"><img src="{{unbound post.author.thumbnail32Link }}"></a>
+        <a href="{{unbound post.author.selfPublicLink}}" class="link-name">{{ post.author.name }}</a>
+        <span class="status-info"> {{ post.readableAction  }} <a href="{{unbound post.targetSelfPublicLink}}">{{ post.readableTarget }}</a></span>
+        <a class="close icon-close-gray_16_18 replacement" {{action destroyRecord target="view"}}>Excluir</a>
+        {{#if post.created_at}}
+            {{datetime post.created_at}}
+        {{/if}}
+    </div>
+    <div class="status-container">
+        <div class="status-content">
+            <div class="post-text">
+                <p class="input-user">{{ post.content.text }}</p>
             </div>
-            <div class="status-contents">
-                <div class="distance-top"></div>
-                <p class="status-message">{{ post.content.text }}</p>
+        </div>
+        <ol class="responses status-content">
+            <div class="last-responses">
+                <p class="legend">Visualizando as últimas respostas...</p>
+                <hr>
             </div>
-            <div class="responses">
-                <div class="distance-top"></div>
-                <span class="last-responses" style="display: none; ">Visualizando as últimas respostas</span>
-                <ol>
-                    {{#each answer in post.answers}}
-                        {{view Redu.Wally.AnswerView contentBinding="answer"}}
-                    {{/each}}
-                </ol>
-                <div class="toggle-statuses" style="display: none; ">
-                    <hr class="border-post">
-                    <a href="#">Ver todos os <span class="qty">1</span> comentários</a>
-                </div>
+            {{#each answer in post.answers}}
+            {{view Redu.Wally.AnswerView contentBinding="answer"}}
+            {{/each}}
+            <div class="all-responses">
+                <hr>
+                <a href="#" class="link-secondary">Visualizando todas as 22 respostas</a>
             </div>
-            {{view Redu.Wally.NewAnswerView}}
+        </ol>
+    </div>
+    <ul class="actions clearfix">
+        <li>
+            <a class="icon-reply-gray_8_10-before reply-status" href="#">Responder</a>
+        </li>
+    </ul>
+    <div class="create-response">
+        {{view Redu.Wally.NewAnswerView}}
+    </div>
+    <hr class="list-separator">
+</script>
+<script type="text/x-handlebars" data-template-name="answer">
+    <hr class="border-post">
+    <span class="close icon-close-gray_16_18" {{action destroyRecord target="view"}}>Fechar</span>
+    <div class="re-status">
+        <div class="status-text status-text-response">
+            <a href="#" class="icon-link">
+                <img alt="{{unbound answer.author.name}}" src="{{unbound answer.author.thumbnail32Link }}">
+            </a>
+            <a href="{{unbound answer.author.selfPublicLink}}" class="link-name">{{ answer.author.name }}</a>
+            <span class="status-info">
+                respondeu:
+            </span>
+            {{#if answer.created_at}}
+            {{datetime answer.created_at}}
+            {{/if}}
+        </div>
+        <div class="post-text">
+            <p class="input-user">{{ answer.content.text }}</p>
         </div>
     </div>
 </script>
-<script type="text/x-handlebars" data-template-name="answer">
-    <li id="status-54958">
-        <hr class="border-post" style="display: none; ">
-        <div class="re-status">
-            <a {{action destroyRecord target="view"}}>Fechar</a>
-            <div class="status-text">
-                <img alt="{{unbound answer.author.name }}" class="avatar" height="32" src="{{unbound answer.author.thumbnail32Link }}" width="32">
-                <a href="{{unbound answer.author.selfPublicLink}}" class="username">{{ answer.author.name }}</a>
-                {{#if answer.created_at}}
-                    {{datetime answer.created_at}}
-                {{/if}}
-            </div>
-            <p class="status-message">{{ answer.content.text }}</p>
-        </div>
-    </li>
-</script>
 <script type="text/x-handlebars" data-template-name="new_post">
-    {{view Ember.TextArea}} {{! bind done inside the controller}}
-    <button type="submit">Postar</button>
-    <a>Cancelar</a>
+    <fieldset>
+        {{view Ember.TextArea rows="1" cols="40"}} {{! bind done inside the controller}}
+        <div class="status-buttons">
+            <a class="button-default">Cancelar</a>
+            <button class="button-primary" type="submit">Enviar</button>
+        </div>
+    </fieldset>
 </script>
 <script type="text/x-handlebars" data-template-name="new_answer">
-    {{view Ember.TextArea}} {{! bind done inside the controller}}
-    <button type="submit">Postar</button>
-    <a>Cancelar</a>
+    <fieldset>
+        {{view Ember.TextArea rows="1" cols="40"}} {{! bind done inside the controller}}
+        <div class="status-buttons">
+            <a class="button-default">Cancelar</a>
+            <button class="button-primary" type="submit">Enviar</button>
+        </div>
+    </fieldset>
 </script>

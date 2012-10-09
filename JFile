@@ -16,6 +16,7 @@ src_dir './src'
 #
 bundle 'wally.js' do
   license 'license.txt'
+  file 'lib/jquery.timeago.js'
   file 'support/transforms.js'
   file 'support/handlebars_helpers.js'
   file 'config/timeago.js'

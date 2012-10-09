@@ -1,12 +1,13 @@
 (function(Wally){
   Wally.PostView = Ember.View.extend({
     templateName: 'post',
+    tagName: 'li',
+    classNames: 'status',
     classNameBindings: ['isVisible:visible:hidden'],
 
     isVisible: function(){
       if(this.get('content.id')){
-        // Turns time tag in a user friendly way
-        Ember.run.next(this, function(){ this.$("time.date").timeago();})
+        this.applyTimeago();
         return true;
       } else {
         return false;
@@ -17,5 +18,10 @@
       this.get('controller').destroyRecord(this.get('content'));
       this.destroy();
     },
+
+    // Turns time tag in a user friendly way
+    applyTimeago: function(){
+      Ember.run.next(this, function(){ this.$("time.date").timeago();})
+    }
   })
 })(Redu.Wally);

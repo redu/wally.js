@@ -1,7 +1,9 @@
 (function(Wally){
   Wally.AnswerView = Ember.View.extend({
     templateName: 'answer',
+    tagName: 'li',
     classNameBindings: ['isVisible:visible:hidden'],
+    classNames: ['status-content', 'response'],
 
     isVisible: function(){
       if(this.get('content.id')){
