@@ -31,7 +31,10 @@
         <a href="#" class="icon-link"><img src="{{unbound post.author.thumbnail32Link }}"></a>
         <a href="{{unbound post.author.selfPublicLink}}" class="link-name">{{ post.author.name }}</a>
         <span class="status-info"> {{ post.readableAction  }} <a href="{{unbound post.targetSelfPublicLink}}">{{ post.readableTarget }}</a></span>
-        <a class="close icon-close-gray_16_18 replacement" {{action destroyRecord target="view"}}>Excluir</a>
+
+        {{#if post.rule.manage}}
+            <a class="close icon-close-gray_16_18 replacement" {{action destroyRecord target="view"}}>Excluir</a>
+        {{/if}}
         {{#if post.created_at}}
             {{datetime post.created_at}}
         {{/if}}
@@ -68,7 +71,9 @@
 </script>
 <script type="text/x-handlebars" data-template-name="answer">
     <hr class="border-post">
-    <span class="close icon-close-gray_16_18" {{action destroyRecord target="view"}}>Fechar</span>
+    {{#if answer.rule.manage}}
+        <span class="close icon-close-gray_16_18" {{action destroyRecord target="view"}}>Excluir</span>
+    {{/if}}
     <div class="re-status">
         <div class="status-text status-text-response">
             <a href="#" class="icon-link">
