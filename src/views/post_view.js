@@ -7,7 +7,7 @@
 
     isVisible: function(){
       if(this.get('content.id')){
-        this.applyTimeago();
+        this.manipulateDOM();
         return true;
       } else {
         return false;
@@ -19,9 +19,14 @@
       this.destroy();
     },
 
-    // Turns time tag in a user friendly way
-    applyTimeago: function(){
-      Ember.run.next(this, function(){ this.$("time.date").timeago();})
+    // Apply DOM manipulations. Executed when the view is visible.
+    manipulateDOM: function(){
+      Ember.run.next(this, function(){
+        // Turns time tag in a user friendly way
+        this.$("time.date").timeago();
+
+        this.$().compactResponses({ maxResponses : 2 })
+      });
     }
   })
 })(Redu.Wally);

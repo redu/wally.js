@@ -17,6 +17,7 @@
 
       this.get('controller').saveRecord();
       this.$('textarea').val("");
+      this.$("textarea").trigger('autosize');
     }
   });
 })(Redu.Wally);

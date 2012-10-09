@@ -3,9 +3,9 @@
     var view;
 
     beforeEach(function(){
-      // Mock applyTimeago to prevent DOM errors
+      // Mock manipulateDOM to prevent DOM errors
       Wally.PostView.reopen({
-        applyTimeago: function(){
+        manipulateDOM: function(){
           return false;
         }
       })

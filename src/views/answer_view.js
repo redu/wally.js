@@ -7,8 +7,7 @@
 
     isVisible: function(){
       if(this.get('content.id')){
-        // Turns time tag in a user friendly way
-        Ember.run.next(this, function(){ this.$("time.date").timeago();})
+        this.manipulateDOM();
         return true;
       } else {
         return false;
@@ -18,6 +17,18 @@
     destroyRecord: function(){
       this.get('controller').destroyRecord(this.get('content'));
       this.destroy();
+    },
+
+    // Apply DOM manipulations. Executed when the view is visible.
+    manipulateDOM: function(){
+      Ember.run.next(this, function(){
+        // Turns time tag in a user friendly way
+        this.$("time.date").timeago();
+        this.$().parent().refreshQttReponses();
+        if (this.get('content.post.answers.length') == 1) {
+          this.$().showNewAnswer();
+        }
+      });
     }
   });
 })(Redu.Wally);
