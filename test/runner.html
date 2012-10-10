@@ -5,11 +5,7 @@
     <link rel="stylesheet" href="lib/mocha-1.4.2.css" />
 
     <!-- Include libraries -->
-    <script src="../src/lib/jquery-1.8.1.min.js"></script>
-    <script src="../src/lib/handlebars-1.0.0.beta.6.js"></script>
-    <script src="../src/lib/ember-1.0.pre.min.js"></script>
-    <script src="../src/lib/ember-data.js"></script>
-
+    <script src="./lib/jquery-1.7.2.js"></script>
 
     <!-- Include test libraries -->
     <script src="./lib/mocha-1.4.2.js"></script>
@@ -22,10 +18,10 @@
         if (!expr) throw new Error(msg || 'failed');
       }
     </script>
-    <!-- Setup for tests -->
-    <script src="./support/setup.js"></script>
     <!-- Code under test -->
     <script src="http://localhost:5555/wally.js"></script>
+    <!-- Setup for tests -->
+    <script src="./support/setup.js"></script>
 
     <!-- Tests -->
     <script src="./models/wall_test.js"></script>
