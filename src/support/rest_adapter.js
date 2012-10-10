@@ -20,6 +20,25 @@
 
         jQuery.ajax(hash);
       },
+
+      buildURL: function(record, suffix) {
+        var url = ["http://0.0.0.0:4567"];
+
+        Ember.assert("Namespace URL (" + this.namespace + ") must not start with slash", !this.namespace || this.namespace.toString().charAt(0) !== "/");
+        Ember.assert("Record URL (" + record + ") must not start with slash", !record || record.toString().charAt(0) !== "/");
+        Ember.assert("URL suffix (" + suffix + ") must not start with slash", !suffix || suffix.toString().charAt(0) !== "/");
+
+        if (this.namespace !== undefined) {
+          url.push(this.namespace);
+        }
+
+        url.push(this.pluralize(record));
+        if (suffix !== undefined) {
+          url.push(suffix);
+        }
+
+        return url.join("/");
+      }
     });
   }
 })(Redu.Wally);

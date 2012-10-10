@@ -2,6 +2,7 @@
   Wally.NewAnswerView = Ember.View.extend({
     templateName: 'new_answer',
     tagName: 'form',
+    classNames: 'create-status',
 
     didInsertElement: function(){
       // Needed because of Bootstrap Redu

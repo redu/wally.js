@@ -2,10 +2,12 @@
   Wally.NewPostView = Ember.View.extend({
     templateName: 'new_post',
     tagName: 'form',
+    classNames: 'create-status',
 
     didInsertElement: function(){
       // Needed because of Bootstrap Redu
       this.$("textarea").autosize();
+      this.$(".status-buttons").hide();
     },
 
     submit: function(event){

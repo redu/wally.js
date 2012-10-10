@@ -37,6 +37,6 @@ Redu.WallyClient = function(opts){
   if (options.rootElement) {
     Redu.Wally.set('rootElement', options.rootElement);
   }
+  window.location.hash = 'walls/' + opts.resourceId;
   Redu.Wally.initialize();
-  window.location.hash = '/walls/' + opts.resourceId;
 };

@@ -3,7 +3,7 @@
     templateName: 'post',
     tagName: 'li',
     classNames: 'status',
-    classNameBindings: ['isVisible:visible:hidden'],
+    classNameBindings: ['isVisible:visible:hidden', 'hasTarget'],
 
     isVisible: function(){
       if(this.get('content.id')){
@@ -13,6 +13,12 @@
         return false;
       }
     }.property("content.id"),
+
+    hasTarget: function(){
+      if(this.get('content.target')){
+        return 'vision-at-environment';
+      }
+    }.property("content.target"),
 
     destroyRecord: function(){
       this.get('controller').destroyRecord(this.get('content'));

@@ -12,19 +12,20 @@
             </div>
         </div>
     </div>
+    <hr class="list-separator">
     <ol class="statuses">
         {{#each post in content}}
-        {{view Redu.Wally.PostView contentBinding="post"}}
+            {{view Redu.Wally.PostView contentBinding="post"}}
         {{/each}}
     </ol>
 </script>
 <script type="text/x-handlebars" data-template-name="post">
     <a href="#" class="icon-link"><span class="icon-subject-gray_32_34 text-replacement">Aula</span></a>
     {{#if post.contexts}}
-        <span class="legend environment-name">
+        <span class="legend context">
             {{ post.readableContext }}
         </span>
-        <a href="{{unbound post.targetSelfPublicLink}}" class="course-name">{{post.target.name}}</a>
+        <a href="{{unbound post.targetSelfPublicLink}}" class="target">{{post.target.name}}</a>
     {{/if}}
 
     <div class="status-text">
@@ -94,19 +95,19 @@
 </script>
 <script type="text/x-handlebars" data-template-name="new_post">
     <fieldset>
-        {{view Ember.TextArea rows="1" cols="40"}} {{! bind done inside the controller}}
-        <div class="status-buttons">
-            <a class="button-default">Cancelar</a>
-            <button class="button-primary" type="submit">Enviar</button>
-        </div>
+        {{view Ember.TextArea rows="1" cols="40" placeholder="Compartilhe algo com seus amigos através do seu mural"}} {{! bind done inside the controller}}
     </fieldset>
+    <div class="status-buttons">
+        <a class="button-default cancel">Cancelar</a>
+        <button class="button-primary" type="submit">Enviar</button>
+    </div>
 </script>
 <script type="text/x-handlebars" data-template-name="new_answer">
     <fieldset>
-        {{view Ember.TextArea rows="1" cols="40"}} {{! bind done inside the controller}}
-        <div class="status-buttons">
-            <a class="button-default">Cancelar</a>
-            <button class="button-primary" type="submit">Enviar</button>
-        </div>
+        {{view Ember.TextArea rows="1" cols="40" placeholder="Compartilhe algo com seus amigos através do seu mural"}} {{! bind done inside the controller}}
     </fieldset>
+    <div class="status-buttons">
+        <a class="button-default cancel">Cancelar</a>
+        <button class="button-primary" type="submit">Enviar</button>
+    </div>
 </script>
