@@ -32,7 +32,7 @@ Redu.WallyClient = function(opts){
   Redu.Wally.store.load(Redu.Wally.Author, opts.user);
   Redu.Wally.user = Redu.Wally.Author.find(opts.user.user_id);
   Redu.Wally.target = opts.target;
-  Redu.Wally.contexts = opts.context || [];
+  Redu.Wally.contexts = opts.contexts || [];
 
   if (options.rootElement) {
     Redu.Wally.set('rootElement', options.rootElement);

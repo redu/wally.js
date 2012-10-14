@@ -1,8 +1,8 @@
 (function(Wally){
   Wally.Post = Wally.Entry.extend({
-    wall: DS.belongsTo('Redu.Wally.Wall'),
+    wall: DS.belongsTo('Redu.Wally.Wall', { key: 'origin_wall' }),
     answers: DS.hasMany('Redu.Wally.Answer', { embedded: true }),
-    target: DS.attr('object'),
+    target: DS.attr('object', { key: 'target_on' }),
     contexts: DS.attr('object'), // array
     action: DS.attr('string'),
 

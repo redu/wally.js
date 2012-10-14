@@ -28,7 +28,8 @@
         author: Wally.user,
         wall: this.wall,
         target: Wally.target,
-        contexts: Wally.contexts
+        contexts: Wally.contexts,
+        action: 'comment'
       })
       this.wall.get('posts').pushObject(post);
       this.set('content', post);
