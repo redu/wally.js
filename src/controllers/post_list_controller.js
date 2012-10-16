@@ -5,15 +5,31 @@
       Wally.get('store').commit();
     },
 
-    createAnswer: function(content){
-      this.transaction = Wally.get('store').transaction();
-      var answer = this.transaction.createRecord(Wally.Answer, {
+    bindCreatedAnswerToView: function(post, view){
+      var transaction = Wally.get('store').transaction();
+      var answer = transaction.createRecord(Wally.Answer, {
         author: Wally.user,
-        post: content.post,
-        content: { text : content.text }
+        post: post
       });
-      content.post.get('answers').pushObject(answer);
-      this.transaction.commit();
+
+      view.set('content', answer);
+      view.set('transaction', transaction);
+    },
+
+    // Needs the view because of the transaction is attached to it
+    saveRecord: function(answer, view){
+      var isSaved;
+
+      if(answer.isValid()){
+        answer.get('post.answers').pushObject(answer);
+        view.get('transaction').commit();
+
+        isSaved = true;
+      } else {
+        isSaved = false;
+      }
+
+      return isSaved;
     }
   });
 })(Redu.Wally);

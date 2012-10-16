@@ -1,17 +1,23 @@
 (function(Wally){
-  describe('NewPostView', function(){
+  describe('NewAnswerView', function(){
     var view;
 
     beforeEach(function(){
-      view = Wally.NewPostView.create();
+      // Mock prepareNewAnswer to prevent accessing the controller
+      Wally.NewAnswerView.reopen({
+        prepareNewAnswer: function(){
+          return false;
+        }
+      });
+      view = Wally.NewAnswerView.create();
     });
 
     afterEach(function(){
       view = null;
     });
 
-    it("has a template named 'new_post'", function(){
-      view.get('templateName').should.equal('new_post');
+    it("has a template named 'new_answer'", function(){
+      view.get('templateName').should.equal('new_answer');
     });
 
     it("has a tag named 'form'", function(){
@@ -20,27 +26,25 @@
 
     describe('ComputedProperties', function(){
       describe('hasError', function(){
-        var post;
+        var answer;
 
         beforeEach(function(){
-          store.load(Wally.Post, 1, { id: 1 });
-          post = store.find(Wally.Post, 1);
-          // Mocking the controller
-          view.set('controller', {});
-          view.set('controller.content', post);
+          store.load(Wally.Answer, 1, { id: 1 });
+          answer = store.find(Wally.Answer, 1);
+          view.set('content', answer);
         });
 
         afterEach(function(){
-          view.set('controller', null);
+          view.set('content', null);
         });
 
         describe('when the post has errors', function(){
           beforeEach(function(){
-            post.isValid();
+            answer.isValid();
           });
 
           afterEach(function(){
-            post.set('errors', null);
+            answer.set('errors', null);
           });
 
           it('returns true', function(){
@@ -48,7 +52,7 @@
           });
         });
 
-        describe('when the post does not have errors', function(){
+        describe('when the answer does not have errors', function(){
           it('returns falsy', function(){
             expect(view.get('hasError')).not.to.be.true;
           });

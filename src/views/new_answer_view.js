@@ -4,6 +4,17 @@
     tagName: 'form',
     classNames: 'create-status',
 
+    init: function(){
+      this._super();
+      this.prepareNewAnswer();
+    },
+
+    hasError: function(){
+      if(this.get('content.errors')){
+        return true;
+      }
+    }.property("content.errors"),
+
     didInsertElement: function(){
       // Needed because of Bootstrap Redu
       this.$("textarea").autosize();
@@ -12,11 +23,19 @@
     submit: function(event){
       event.preventDefault();
       var value = this.$('textarea').val();
-      var content = { text: value, post : this.get("parentView.content") };
+      this.get('content').set('content', { text: value });
 
       var controller = this.get('controller');
-      controller.createAnswer(content);
-      this.$('textarea').val("");
+      if(controller.saveRecord(this.get('content'), this)){
+        this.$('textarea').val("");
+
+        this.prepareNewAnswer();
+      }
+    },
+
+    prepareNewAnswer: function(){
+      var post = this.get("parentView.content");
+      this.get('controller').bindCreatedAnswerToView(post, this);
     }
   });
 })(Redu.Wally);

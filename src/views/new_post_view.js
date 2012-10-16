@@ -4,6 +4,12 @@
     tagName: 'form',
     classNames: 'create-status',
 
+    hasError: function(){
+      if(this.get('controller.content.errors')){
+        return true;
+      }
+    }.property("controller.content.errors"),
+
     didInsertElement: function(){
       // Needed because of Bootstrap Redu
       this.$("textarea").autosize();
@@ -17,9 +23,10 @@
       var value = this.$('textarea').val();
       this.get('controller.content').set('content', { text: value });
 
-      this.get('controller').saveRecord();
-      this.$('textarea').val("");
-      this.$("textarea").trigger('autosize');
+      if(this.get('controller').saveRecord()){
+        this.$('textarea').val("");
+        this.$("textarea").trigger('autosize');
+      }
     }
   });
 })(Redu.Wally);

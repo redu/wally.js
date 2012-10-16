@@ -89,5 +89,83 @@
         });
       });
     });
+
+    describe('Functions', function(){
+      describe('has a function isValid', function(){
+        afterEach(function(){
+          entry.set('content', null);
+        });
+
+        it('respond to isValid', function(){
+          expect(entry.isValid()).not.to.be.undefined;
+        });
+
+        describe('when a entry does not have a content', function(){
+          beforeEach(function(){
+            entry.set('content', null);
+          });
+
+          it('is not valid', function(){
+            expect(entry.isValid()).to.be.false;
+          });
+
+          it('has an error: Por favor, digite o texto que deseja postar.', function(){
+            entry.isValid();
+            expect(entry.get('errors')).not.to.be.null;
+            entry.get('errors').should.
+              equal('Por favor, digite o texto que deseja postar.');
+          });
+        });
+
+        describe('when a entry have a empty content', function(){
+          beforeEach(function(){
+            entry.set('content', {});
+          });
+
+          it('is not valid', function(){
+            expect(entry.isValid()).to.be.false;
+          });
+
+          it('has an error: Por favor, digite o texto que deseja postar.', function(){
+            entry.isValid();
+            expect(entry.get('errors')).not.to.be.null;
+            entry.get('errors').should.
+              equal('Por favor, digite o texto que deseja postar.');
+          });
+        });
+
+        describe('when a entry have a content with a empty text', function(){
+          beforeEach(function(){
+            entry.set('content', {text: ''});
+          });
+
+          it('is not valid', function(){
+            expect(entry.isValid()).to.be.false;
+          });
+
+          it('has an error: Por favor, digite o texto que deseja postar.', function(){
+            entry.isValid();
+            expect(entry.get('errors')).not.to.be.null;
+            entry.get('errors').should.
+              equal('Por favor, digite o texto que deseja postar.');
+          });
+        });
+
+        describe('when a entry have a content with text', function(){
+          beforeEach(function(){
+            entry.set('content', {text: 'Lorem.'});
+          });
+
+          it('is valid', function(){
+            expect(entry.isValid()).to.be.true;
+          });
+
+          it('does not have errors', function(){
+            entry.isValid();
+            expect(entry.get('errors')).to.be.null;
+          });
+        });
+      });
+    });
   });
 })(Redu.Wally)

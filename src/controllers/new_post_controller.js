@@ -15,10 +15,20 @@
 
     // Sends the modification to the server
     saveRecord: function() {
-      this.transaction.commit();
-      this.transaction = null;
-      // Prepare a new post for view
-      this.enterNew(this.wall)
+    var isSaved;
+
+      if(this.get('content').isValid()){
+        this.transaction.commit();
+        this.transaction = null;
+        // Prepare a new post for view
+        this.enterNew(this.wall)
+
+        isSaved = true;
+      } else {
+        isSaved = false;
+      }
+
+      return isSaved;
     },
 
     // Creates a new post and bind it to the view

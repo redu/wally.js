@@ -85,7 +85,7 @@
                 respondeu:
             </span>
             {{#if answer.created_at}}
-            {{datetime answer.created_at}}
+                {{datetime answer.created_at}}
             {{/if}}
         </div>
         <div class="post-text">
@@ -94,8 +94,11 @@
     </div>
 </script>
 <script type="text/x-handlebars" data-template-name="new_post">
-    <fieldset>
+    <fieldset {{bindAttr class="view.hasError:control-error"}}>
         {{view Ember.TextArea rows="1" cols="40" placeholder="Compartilhe algo com seus amigos através do seu mural"}} {{! bind done inside the controller}}
+        <ul class="errors_on_field">
+            <li>{{content.errors}}</li>
+        </ul>
     </fieldset>
     <div class="status-buttons">
         <a class="button-default cancel">Cancelar</a>
@@ -103,8 +106,11 @@
     </div>
 </script>
 <script type="text/x-handlebars" data-template-name="new_answer">
-    <fieldset>
+    <fieldset {{bindAttr class="view.hasError:control-error"}}>
         {{view Ember.TextArea rows="1" cols="40" placeholder="Compartilhe algo com seus amigos através do seu mural"}} {{! bind done inside the controller}}
+        <ul class="errors_on_field">
+            <li>{{view.content.errors}}</li>
+        </ul>
     </fieldset>
     <div class="status-buttons">
         <a class="button-default cancel">Cancelar</a>
