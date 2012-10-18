@@ -10,21 +10,46 @@ First you need to include wally.js on your app:
 <script src="wally.min.js"></script>
 ```
 
-After requiring it, instantiate the Wally app and be happy:
+After that, you need to copy all templates inside [src/templates](https://github.com/redu/wally.js/blob/master/src/templates/templates.html) and put it on your HTML's `<head>`.
+
+Finally, instantiate the Wally app and be happy:
 
 ```js
-// Initialize Wally.js with:
-// - your token to access the Wally server
-// - the root element where the wall should be rendered
-// - which wall you want, ie you have to informe the wall's owner
-var wally = new Redu.Wally({
-  token: "yourtoken",
-  root_element: "#wall-content",
-  resource_id: "core:space_45"
-})
+/** Initialize the WallyClient and gets the specified Wall
+ *
+ * opts
+ *  A set of key/value pairs that configures the WallyClient.
+ *
+ *  token (String)
+ *    The key used to get access on the Wally Server
+ *  resourceId (String)
+ *    Basically the Wall's owner
+ *  rootElement (String) [optional]
+ *    Where the WallyApp should be rendered. By default, the app is
+ *    appended to the body.
+ *  corsLinks (Boolean) [optional]
+ *    Default is false.
+ *    Indicates that the links should be opened in the app's parent.
+ *    For example: If the app is inside an iframe and you need the links
+ *    to be opened inside the browser instead of inside the iframe, set
+ *    it to true.
+ *  user (Object)
+ *    The logged in user
+ *  target (Object)
+ *    Where the post will be posted
+ *  context (Array) [optional]
+ *    Like breadcrumbs, so the post will be contextualized
+*/
+new Redu.WallyClient({
+  token: "my-token",
+  resourceId: "core:space_1",
+  rootElement: '#my-div',
+  corsLinks: true,
+  user: {"links":[{"href":"http://0.0.0.0:3000/pessoas/julianalucena","rel":"public_self"}],"name":"Juliana Lucena","thumbnails":[{"href":"http://0.0.0.0:3000//images/new/missing_users_thumb_32.png","size":"32x32"}],"user_id":"8"},
+  target: {"entity_id":"445","kind":"space","links":[{"href":"http://0.0.0.0:3000/espacos/445","rel":"self_public"}],"name":"Processos de desenvolvimento"},
+  contexts: [{"entity_id":"351","links":[{"href":"http://0.0.0.0:3000/redu-educational-technologies","rel":"self_public"}],"name":"Redu Educational Technologies"},{"entity_id":"387","links":[{"href":"http://0.0.0.0:3000/redu-educational-technologies/cursos/desenvolvimento","rel":"self_public"}],"name":"Desenvolvimento"}]
+});
 ```
-
-For example, if you have a blog that has a wall, the blog is the wall's owner. So the `resource_id` is the blog's identifier.
 
 # Under the skin
 Wally.js and Wally service made an agreement so they can talk to each other, this agreement is based on JSON and defined urls.
@@ -44,25 +69,20 @@ To explain a little about them, a `Wall` has many `Post` which in turn has many 
 Of course, almost every entity is mapped to an URL on Wally service. The exception is `Author`, because it is treated as an embedded entity, ie we don't need to access it through and URl because it is already inside the `Post` and `Answer` structure.
 
 * Wall
-    - GET `/walls` (get a list of Walls)
-    - GET `/walls/:id` (get a Wall)
-    - GET `/walls/?resource_id=:resource_id` (get all Walls of a resource)
-    - POST `/walls` (create a new Wall)
-    - DELETE `/walls/:id` (delete a Wall)
+    - GET `/walls/:resource_id` (get a Wall)
 * Post
-    - GET `/walls/:wall_id/posts` (get a list of Posts)
     - GET `/posts/:id` (get a Post)
-    - POST `/walls/:wall_id/posts` (create a Post)
+    - POST `/posts` (create a Post)
     - DELETE `/posts/:id` (delete a Post)
 * Answer
     - GET `/answers/:id` (get an Answer)
-    - POST `/posts/:post_id/answers` (create an Answer)
+    - POST `/answers` (create an Answer)
     - DELETE `/answers/:id` (delete an Answer)
 
 ### Entities' structure
 The entities' structure returned by the Wally server are described below:
 
-GET `/walls/1`
+GET `/walls/core:space_1`
 ```js
 {
   "wall" : {
@@ -72,22 +92,22 @@ GET `/walls/1`
     ]
     "resource_id": "core:space_1",
     "posts": [
-      { "id" : 1, ... },
-      { "id" : 2, ... }
+      { "id" : 1, ..., answers: [ { "id" : 9, ... }, { "id" : 23, ... } ] },
+      { "id" : 2, ..., answers: [ { "id" : 5, ... }, { "id" : 95, ... } ] },
     ]
   }
 }
 ```
 
-GET `/posts/1`
+POST `/posts`
 ```js
 {
   "post": {
     "id": 1,
-    "wall_id": 29,
+    "origin_wall": 29,
     "created_at": "2011-02-06T08:50:14-02:00",
     "author": {
-      "id": 123412,
+      "user_id": 123412,
       "name": "Tiago Ferreira Lima",
       "links": [
         { "rel" : "public_self", "href": "http://redu.com.br/pessoas/fltiago" },
@@ -103,26 +123,23 @@ GET `/posts/1`
         ]
       },
      },
-    "answers": [
-      { "id": 1, ... },
-      { "id": 2, ... },
-    ],
+    "answers": [],
     "content": {
-      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
     },
     "target" : {
-      "id": 2121,
-      "name" : "Disciplina tal",
+      "entity_id": 15,
+      "name" : "Disciplina Estado de Ânimo",
       "links" : [
-        { "rel" : "self", "href" : "http://redu.com.br/api/spaces/2121" },
-        { "rel" : "self_public", "href" : "http://redu.com.br/espacos/2121" }
+        { "rel" : "self", "href" : "http://redu.com.br/api/spaces/15" },
+        { "rel" : "self_public", "href" : "http://redu.com.br/espacos/15" }
       ]
     },
-    "context": [
-      { "id" : 12, "name" : "Curso tal",
-        "links" : [ { "rel" : "self", "href" : "http://redu.com.br/api/courses/12" }, { "rel" : "public_self", "href" : "http://redu.com.br/environment/cursos/curso-de-algo" } ] },
-      { "id" : 12, "name" : "Disciplina tal",
-        "links" : [ { "rel" : "self", "href" : "http://redu.com.br/api/space/12" }, { "rel" : "public_self", "href" : "http://redu.com.br/espacos/12" } ] }
+    "contexts": [
+      { "entity_id" : 12, "name" : "Curso Psicologia",
+        "links" : [ { "rel" : "self", "href" : "http://redu.com.br/api/courses/12" }, { "rel" : "public_self", "href" : "http://redu.com.br/ufpe/cursos/curso-de-psicologia" } ] },
+      { "entity_id" : 20, "name" : "UFPE",
+        "links" : [ { "rel" : "self", "href" : "http://redu.com.br/api/space/20" }, { "rel" : "public_self", "href" : "http://redu.com.br/ufpe" } ] }
     ],
     "links": [
       { "rel" : "self", "href" : "http://wally.redu.com.br/posts/1"  }
@@ -133,15 +150,15 @@ GET `/posts/1`
 }
 ```
 
-GET `/answers/1`
+POST `/answers`
 ```js
 {
   "answer": {
-    "id": 1,
-    "post_id": 48,
+    "id": 82,
+    "post_id": 1,
     "created_at": "2011-02-06T08:50:14-02:00",
     "author": {
-      "id": 123412,
+      "user_id": 123412,
       "name": "Tiago Ferreira",
       "links": [
         { "rel" : "public_self", "href": "http://redu.com.br/pessoas/fltiago" },
@@ -152,18 +169,15 @@ GET `/answers/1`
       ]
      },
     "content": {
-      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     },
     "links": [
-      { "rel" : "self", "href" : "http://wally.redu.com.br/answers/1"  }
+      { "rel" : "self", "href" : "http://wally.redu.com.br/answers/82"  }
     ]
     "rule": { "manage" : true },
   }
 }
 ```
-
-# Contribute
-Anyone can contribute with us, just fork it and create a pull request.
 
 ## Next steps
 1. Precompile handlebars templates
@@ -191,7 +205,20 @@ Writing to dist/0.0/wally.js
 Writing to dist/0.0/wally.min.js
 ```
 
-# License
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the remote branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
+
+
+<img src="https://github.com/downloads/redu/redupy/redutech-marca.png" alt="Redu Educational Technologies" width="300">
+
+This project is maintained and funded by [Redu Educational Techologies](http://tech.redu.com.br).
+
+# Copyright
 
 Copyright (c) 2012 Redu Educational Technologies
 
