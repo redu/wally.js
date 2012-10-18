@@ -13,6 +13,12 @@ Redu.Wally = Ember.Application.create();
  *  rootElement (String) [optional]
  *    Where the WallyApp should be rendered. By default, the app is
  *    appended to the body.
+ *  corsLinks (Boolean) [optional]
+ *    Default is false.
+ *    Indicates that the links should be opened in the app's parent.
+ *    For example: If the app is inside an iframe and you need the links
+ *    to be opened inside the browser instead of inside the iframe, set
+ *    it to true.
  *  user (Object)
  *    The logged in user
  *  target (Object)
@@ -21,7 +27,8 @@ Redu.Wally = Ember.Application.create();
  *    Like breadcrumbs, so the post will be contextualized
 */
 Redu.WallyClient = function(opts){
-  var options = opts;
+  var options = { corsLinks: false }
+  $.extend(options, opts)
 
   Redu.Wally.configAdapter({ token: opts.token });
   Redu.Wally.store = DS.Store.create({
@@ -33,6 +40,16 @@ Redu.WallyClient = function(opts){
   Redu.Wally.user = Redu.Wally.Author.find(opts.user.user_id);
   Redu.Wally.target = opts.target;
   Redu.Wally.contexts = opts.contexts || [];
+
+  if(options.corsLinks){
+    $('a').live('click', function(){
+      var href = $(this).attr('href');
+      if(href != null && href != '#'){
+        window.parent.location.href = href;
+      }
+      return false;
+    });
+  }
 
   if (options.rootElement) {
     Redu.Wally.set('rootElement', options.rootElement);
