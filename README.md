@@ -218,6 +218,31 @@ Writing to dist/0.0/wally.min.js
 
 This project is maintained and funded by [Redu Educational Techologies](http://tech.redu.com.br).
 
+# On the skin
+If you want the great layout provided by [Redu Bootstrap](https://github.com/redu/ui-components)'s components, you should download it and you can use this structure:
+
+```html
+<html>
+    <head>
+      <script src="jquery-1.7.2.min.js"></script>
+      <link rel="stylesheet" href="css/bootstrap-redu.css">
+      <script src="js/vendor/modernizr.js"></script>
+
+      <!-- Include templates (src/templates) here -->
+      <script src="wally.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+      <!-- Do the Wally App initialization here -->
+      <script src="js/vendor/jquery.tokeninput.js"></script>
+      <script src="js/vendor/jquery.autosize.min.js"></script>
+      <script src="js/vendor/placeholder-polyfill.min.js"></script>
+      <script src="js/bootstrap-redu.js"></script>
+      <script src="http://use.typekit.com/lpo4rgu.js"></script>
+      <script>try{Typekit.load(); $(".typekit-badge").remove();}catch(e){}</script>
+    </body>
+</html>
+```
+
 # Copyright
 
 Copyright (c) 2012 Redu Educational Technologies
