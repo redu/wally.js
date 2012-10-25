@@ -16,13 +16,17 @@
 
     hasTarget: function(){
       if(this.get('content.target')){
-        return 'vision-at-environment';
+        return 'with-target';
       }
     }.property("content.target"),
 
     destroyRecord: function(){
-      this.get('controller').destroyRecord(this.get('content'));
-      this.destroy();
+      var confirmation = confirm("Ao apagar esta postagem, você também removerá todas as respostas. Deseja continuar?");
+
+      if(confirmation){
+        this.get('controller').destroyRecord(this.get('content'));
+        this.destroy();
+      }
     },
 
     // Apply DOM manipulations. Executed when the view is visible.
@@ -32,6 +36,7 @@
         this.$("time.date").timeago();
 
         this.$().compactResponses({ maxResponses : 2 })
+        this.$().hideLastHr();
       });
     }
   })

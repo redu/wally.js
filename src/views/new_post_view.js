@@ -11,8 +11,6 @@
     }.property("controller.content.errors"),
 
     didInsertElement: function(){
-      // Needed because of Bootstrap Redu
-      this.$("textarea").autosize();
       this.$(".status-buttons").hide();
     },
 

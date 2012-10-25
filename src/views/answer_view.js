@@ -15,8 +15,12 @@
     }.property("content.id"),
 
     destroyRecord: function(){
-      this.get('controller').destroyRecord(this.get('content'));
-      this.destroy();
+      var confirmation = confirm("Esta ação irá apagar sua resposta. Deseja continuar?");
+
+      if(confirmation){
+        this.get('controller').destroyRecord(this.get('content'));
+        this.destroy();
+      }
     },
 
     // Apply DOM manipulations. Executed when the view is visible.

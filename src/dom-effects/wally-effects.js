@@ -56,3 +56,9 @@ $.fn.refreshQttReponses = function(opts){
     $this.find('.all-responses .qtt').html(qttResponses);
   });
 };
+
+$.fn.hideLastHr = function(){
+  var $this = $(this);
+  $this.parent().find('.status > hr').show();
+  $this.parent().find(".status:visible:last hr").hide();
+};
