@@ -25,10 +25,17 @@ Redu.Wally = Ember.Application.create();
  *    Where the post will be posted
  *  context (Array) [optional]
  *    Like breadcrumbs, so the post will be contextualized
+ *  config (Object)
+ *    Specific configurations
+ *
+ *    showContexts (Boolean)
+ *      Default is false.
+ *      Specify if the contexts should be showed.
+ *
 */
 Redu.WallyClient = function(opts){
-  var options = { corsLinks: false }
-  $.extend(options, opts)
+  var options = { corsLinks: false, config: { showContexts: false } }
+  $.extend(true, options, opts)
 
   Redu.Wally.configAdapter({ token: opts.token });
   Redu.Wally.store = DS.Store.create({
@@ -40,6 +47,11 @@ Redu.WallyClient = function(opts){
   Redu.Wally.user = Redu.Wally.Author.find(opts.user.user_id);
   Redu.Wally.target = opts.target;
   Redu.Wally.contexts = opts.contexts || [];
+  if(typeof opts.config.showContexts == "string"){
+    Redu.Wally.showContexts = opts.config.showContexts ==  "true" ? true : false;
+  }else{
+    Redu.Wally.showContexts = opts.config.showContexts;
+  }
 
   if(options.corsLinks){
     $('a').live('click', function(){

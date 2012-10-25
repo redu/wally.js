@@ -39,6 +39,13 @@ Finally, instantiate the Wally app and be happy:
  *    Where the post will be posted
  *  context (Array) [optional]
  *    Like breadcrumbs, so the post will be contextualized
+ *  config (Object)
+ *    Specific configurations
+ *
+ *    showContexts (Boolean)
+ *      Default is false.
+ *      Specify if the contexts should be showed.
+ *
 */
 new Redu.WallyClient({
   token: "my-token",
@@ -117,10 +124,7 @@ POST `/posts`
         { "href": "http://s3.amazonaws.com/redu_uploads/users/avatars/4/thumb_32/Guilherme3x4%20copy.jpg?1323711306", "size": "32x32" }
       ]
       "role": {
-        "name": "tutor",
-        "thumbnails": [
-          { "href": "http://s3.amazonaws.com/redu_uploads/users/avatars/4/thumb_32/Guilherme3x4%20copy.jpg?1323711306", "size": "16x16" }
-        ]
+        "name": "tutor"
       },
      },
     "answers": [],
@@ -130,6 +134,7 @@ POST `/posts`
     "target" : {
       "entity_id": 15,
       "name" : "Disciplina Estado de Ânimo",
+      "kind": "space",
       "links" : [
         { "rel" : "self", "href" : "http://redu.com.br/api/spaces/15" },
         { "rel" : "self_public", "href" : "http://redu.com.br/espacos/15" }
