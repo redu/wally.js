@@ -2,7 +2,6 @@
   Wally.NewAnswerView = Ember.View.extend({
     templateName: 'new_answer',
     tagName: 'form',
-    classNames: 'create-status',
 
     init: function(){
       this._super();

@@ -5,11 +5,9 @@
     {{outlet}}
 </script>
 <script type="text/x-handlebars" data-template-name="post_list">
-    <div class="statuses">
-        <div class="status">
-            <div class="status-content">
-                {{outlet}}
-            </div>
+    <div class="status">
+        <div class="status-content">
+            {{outlet}}
         </div>
     </div>
     <hr class="list-separator">
@@ -111,15 +109,15 @@
 </script>
 <script type="text/x-handlebars" data-template-name="new_answer">
     <fieldset {{bindAttr class="view.hasError:control-error"}}>
-        {{view Ember.TextArea rows="1" placeholder="Compartilhe algo com seus amigos através do seu mural"}} {{! bind done inside the controller}}
+        {{view Ember.TextArea rows="6" placeholder="Compartilhe algo com seus amigos através do seu mural"}} {{! bind done inside the controller}}
         {{#if view.content.errors}}
             <ul class="control-errors">
                 <li>{{view.content.errors}}</li>
             </ul>
         {{/if}}
+        <div class="status-buttons">
+            <a class="button-default cancel">Cancelar</a>
+            <button class="button-primary" type="submit">Enviar</button>
+        </div>
     </fieldset>
-    <div class="status-buttons">
-        <a class="button-default cancel">Cancelar</a>
-        <button class="button-primary" type="submit">Enviar</button>
-    </div>
 </script>
