@@ -60,5 +60,5 @@ $.fn.refreshQttReponses = function(opts){
 $.fn.hideLastHr = function(){
   var $this = $(this);
   $this.parent().find('.status > hr').show();
-  $this.parent().find(".status:visible:last hr").hide();
+  $this.parent().find(".status:visible:last > hr").hide();
 };

@@ -47,10 +47,10 @@ Redu.WallyClient = function(opts){
   Redu.Wally.user = Redu.Wally.Author.find(opts.user.user_id);
   Redu.Wally.target = opts.target;
   Redu.Wally.contexts = opts.contexts || [];
-  if(typeof opts.config.showContexts == "string"){
-    Redu.Wally.showContexts = opts.config.showContexts ==  "true" ? true : false;
+  if(typeof options.config.showContexts == "string"){
+    Redu.Wally.showContexts = options.config.showContexts ==  "true" ? true : false;
   }else{
-    Redu.Wally.showContexts = opts.config.showContexts;
+    Redu.Wally.showContexts = options.config.showContexts;
   }
 
   if(options.corsLinks){
