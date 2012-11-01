@@ -14,6 +14,13 @@
       }
     }.property("content.id"),
 
+    willDestroyElement: function(){
+      // Refresh quantity of responses
+      var qttResponses = this.get('content.post.answers.length') - 1;
+      var $responses = this.$().parent();
+      $responses.refreshQttResponses({ qttResponses : qttResponses});
+    },
+
     destroyRecord: function(){
       var confirmation = confirm("Esta ação irá apagar sua resposta. Deseja continuar?");
 
@@ -28,7 +35,7 @@
       Ember.run.next(this, function(){
         // Turns time tag in a user friendly way
         this.$("time.date").timeago();
-        this.$().parent().refreshQttReponses();
+        this.$().parent().refreshQttResponses();
         if (this.get('content.post.answers.length') == 1) {
           this.$().showNewAnswer();
         }

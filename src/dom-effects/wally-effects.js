@@ -8,7 +8,7 @@ $.fn.compactResponses = function(opts){
     var qttResponses = $responses.find('> li').length;
     var qttHiddenResponses = qttResponses - maxResponses;
 
-    $responses.refreshQttReponses({ qttReponses : qttResponses});
+    $responses.refreshQttResponses({ qttResponses : qttResponses});
     if(qttResponses > maxResponses){
       $responses.find('> li:lt('+ qttHiddenResponses + ')').hide();
       $responses.find('> li:visible:first .border-post').hide();
@@ -47,12 +47,13 @@ $.fn.showNewAnswer = function(){
   });
 };
 
-$.fn.refreshQttReponses = function(opts){
-  return this.each(function(opts){
-    var options = opts;
+$.fn.refreshQttResponses = function(opts){
+  return this.each(function(){
+    var options = {};
     var $this = $(this);
+    $.extend(options, opts);
 
-    var qttResponses = options.qttReponses || $this.find('> li').length;
+    var qttResponses = options.qttResponses || $this.find('> li').length;
     $this.find('.all-responses .qtt').html(qttResponses);
   });
 };
