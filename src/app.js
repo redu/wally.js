@@ -1,4 +1,6 @@
-Redu = {};
+if ('undefined' === typeof Redu){
+  Redu = {}
+}
 Redu.Wally = Ember.Application.create();
 
 /** Initialize the WallyClient and gets the specified Wall
@@ -68,4 +70,5 @@ Redu.WallyClient = function(opts){
   }
   window.location.hash = 'walls/' + opts.resourceId;
   Redu.Wally.initialize();
+  new Redu.Resizer();
 };

@@ -186,6 +186,7 @@ POST `/answers`
 
 ## Next steps
 1. Precompile handlebars templates
+2. Configure jbundle to insert filenames in the beginning of each file
 
 ## Development setup
 You do not need to install a thing, because all you need is already inside the repository.
@@ -231,6 +232,7 @@ If you want the great layout provided by [Redu Bootstrap](https://github.com/red
     <head>
       <script src="jquery-1.7.2.min.js"></script>
       <link rel="stylesheet" href="css/bootstrap-redu.css">
+      <link rel="stylesheet" href="css/wally.css">
       <script src="js/vendor/modernizr.js"></script>
 
       <!-- Include templates (src/templates) here -->
