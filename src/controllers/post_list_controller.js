@@ -1,5 +1,8 @@
 (function(Wally){
-  Wally.PostListController = Ember.Controller.extend({
+  Wally.PostListController = Ember.ArrayController.extend({
+    sortProperties: ['created_at'],
+    sortAscending: false,
+
     destroyRecord: function(record){
       record.deleteRecord();
       Wally.get('store').commit();
