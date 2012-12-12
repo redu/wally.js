@@ -15,6 +15,7 @@ if ('undefined' === typeof Redu){
     $.extend(options, opts);
 
     this.containerSelector = options.containerSelector;
+    this.hideScrollBar();
     this.socket = this.initSocket();
   };
 
@@ -44,5 +45,9 @@ if ('undefined' === typeof Redu){
     }
 
     return JSON.stringify(message);
+  };
+
+  Redu.Resizer.prototype.hideScrollBar = function(){
+    $('html').css('overflow', 'hidden');
   };
 })(Redu);
