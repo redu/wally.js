@@ -191,7 +191,7 @@ POST `/answers`
 ## Development setup
 You do not need to install a thing, because all you need is already inside the repository.
 
-We use [Mocha](http://visionmedia.github.com/mocha/) and [Chai](http://chaijs.com/) for tests, but don't worry because it's all set up. You just need to run the static files server (with jBundle) and open the `test/runner.html` and all tests will run on the browser and present to you a report with a clean layout.
+We use [Mocha](http://mochajs.org/) and [Chai](http://chaijs.com/) for tests, but don't worry because it's all set up. You just need to run the static files server (with jBundle) and open the `test/runner.html` and all tests will run on the browser and present to you a report with a clean layout.
 ```
 # Start static files server
 wally.js $ jbundle s
